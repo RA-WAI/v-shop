@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminAuthController;
 // User Route
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -26,9 +28,19 @@ Route::middleware('auth')->group(function () {
 
 // End User Route
 
-// Admin route group
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function(){
+Route::middleware('redirectAdmin')->prefix('admin')->name('admin.')->group(function(){
+    Route::controller(AdminAuthController::class)->group(function() {
+        Route::get('login', 'showLoginForm')->name('login');
+        Route::post('login', 'login')->name('login.post');
+        Route::post('logout', 'logout')->name('logout');
+    });
+});
 
+// Admin route group
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function(){
+    Route::controller(AdminController::class)->group(function () {
+        Route::get('/dashboard', 'index')->name('dashboard');
+    });
 });
 // End Admin route group
 
