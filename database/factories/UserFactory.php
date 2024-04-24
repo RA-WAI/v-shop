@@ -41,4 +41,17 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    /**
+     * Create admin user.
+     */
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'name' => 'Super Admin',
+            'email' => 'admin@vshop.com',
+            'password' => Hash::make('123123123'),
+            'isAdmin' => true,
+        ]);
+    }
 }
