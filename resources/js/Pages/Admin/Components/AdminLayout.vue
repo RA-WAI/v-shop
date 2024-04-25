@@ -7,8 +7,9 @@
         <!-- Sidebar Start -->
         <Sidebar/>
         <!-- Sidebar End -->
-
-        <slot />
+        <main class="md:ml-64 h-auto pt-20">
+            <slot />
+        </main>
       </div>
     </template>
     <script setup>

@@ -6,6 +6,8 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\ProductController;
+
 // User Route
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -40,6 +42,10 @@ Route::middleware('redirectAdmin')->prefix('admin')->name('admin.')->group(funct
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function(){
     Route::controller(AdminController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
+    });
+    Route::controller(ProductController::class)->group(function() {
+        Route::get('products', 'index')->name('products.index');
+        Route::post('products/store', 'store')->name('products.store');
     });
 });
 // End Admin route group
