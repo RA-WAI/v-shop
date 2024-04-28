@@ -621,7 +621,7 @@
                                 ></path>
                             </svg>
                             <div class="text-sm text-gray-900 dark:text-white">
-                                Logout
+                                Logout Test
                             </div>
                         </a>
                     </div>
@@ -758,9 +758,9 @@
                         <li>
                             <Link
                                 :href="route('logout')"
-                                method="post"
+                                method="post" as="button" type="button"
                                 class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                >Sign out User</Link>
+                                >Sign Out</Link>
                         </li>
                     </ul>
                 </div>

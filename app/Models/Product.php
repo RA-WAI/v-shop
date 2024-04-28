@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models;
+
+use App\Models\Relatonships\ProductRelationship;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -9,9 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory, HasSlug;
+    use HasFactory, HasSlug, ProductRelationship;
 
-    protected $failable = [
+    protected $fillable = [
         'name',
         'slug',
         'quantity',

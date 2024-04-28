@@ -11,7 +11,7 @@ class Brand extends Model
 {
     use HasFactory, HasSlug;
 
-    protected $failable = [
+    protected $fillable = [
         'name',
         'slug'
     ];

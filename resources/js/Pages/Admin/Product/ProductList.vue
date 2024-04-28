@@ -450,51 +450,49 @@
         >
             <!-- Start Form -->
 
-            <form class="" @submit.prevent="submitForm">
-                <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full mb-5 group">
-                        <input
+            <Form @submit="submitForm" v-slot="{errors}">
+                <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 mb-2">
+                    <div class="w-full">
+                        <label for="name" class="form-label">Name</label>
+                        <Field
                             v-model="form.name"
                             type="text"
                             name="name"
                             id="name"
-                            class="form-input peer"
-                            placeholder=" "
-
+                            class="form-input"
+                            placeholder="Type product name"
+                            :class="{'border-red-500': errors.name}"
                         />
-                        <label for="name" class="form-label"
-                            >Product Name</label
-                        >
-                        <div class="text-red-500" v-if="formErrors?.name">
-                            {{ formErrors?.name }}
-                        </div>
+                        <ErrorMessage name="name" class="text-red-500" />
                     </div>
-                    <div class="relative z-0 w-full mb-5 group">
-                        <input
+                    <div class="w-full">
+                        <label for="name" class="form-label">Price</label>
+                        <Field
                             v-model="form.price"
-                            type="number"
+                            type="text"
                             name="price"
-                            id="price"
-                            class="form-input peer"
-                            placeholder=" "
-
+                            id="name"
+                            class="form-input"
+                            placeholder="Type product price"
+                            :class="{'border-red-500': errors.price}"
                         />
-                        <label for="price" class="form-label">Price</label>
-                        <div class="text-red-500" v-if="formErrors?.price">
-                            {{ formErrors?.price }}
-                        </div>
+                        <ErrorMessage name="price" class="text-red-500" />
                     </div>
+
                 </div>
-                <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full mb-5 group">
-                        <label for="brand" class="sr-only">Select Brand</label>
-                        <select
+                <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 mb-2">
+                    <div class="w-full">
+                        <label for="name" class="form-label">Brand</label>
+                        <Field
+                            as="select"
                             v-model="form.brand_id"
-                            id="brand"
-                            name="brand"
-                            class="form-select peer"
+                            name="brand_id"
+                            id="name"
+                            class="form-input"
+                            placeholder="Type product name"
+                            :class="{'border-red-500': errors.brand_id}"
                         >
-                            <option selected value="">Select Brand</option>
+                        <option selected value="">Select Brand</option>
                             <option
                                 v-for="(brand, index) in brands"
                                 :key="index"
@@ -502,83 +500,94 @@
                             >
                                 {{ brand.name }}
                             </option>
-                        </select>
-                        <div class="text-red-500" v-if="formErrors?.brand_id">
-                            {{ formErrors?.brand_id }}
-                        </div>
+                        </Field>
+                        <ErrorMessage name="name" class="text-red-500" />
                     </div>
-                    <div class="relative z-0 w-full mb-5 group">
-                        <label for="category" class="sr-only"
-                            >Select Category</label
-                        >
-                        <select
+                    <div class="w-full">
+                        <label for="category_id" class="form-label">Category</label>
+                        <Field
+                            as="select"
                             v-model="form.category_id"
-                            id="category"
-                            name="category"
-                            class="form-select peer"
+                            name="category_id"
+                            id="category_id"
+                            class="form-input"
+                            :class="{'border-red-500': errors.category_id}"
                         >
-                            <option selected value="">Select Category</option>
+                        <option selected value="">Select Category</option>
                             <option
                                 v-for="(category, index) in categories"
                                 :key="index"
-                                value="category.id"
+                                :value="category.id"
                             >
                                 {{ category.name }}
                             </option>
-                        </select>
-                        <div class="text-red-500" v-if="formErrors?.category_id">
-                            {{ formErrors?.category_id }}
-                        </div>
+                        </Field>
+                        <ErrorMessage name="price" class="text-red-500" />
                     </div>
+
                 </div>
-                <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full mb-5 group">
-                        <input
+                <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 mb-2" >
+                    <div class="w-full">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <Field
                             v-model="form.quantity"
                             type="number"
                             name="quantity"
                             id="quantity"
-                            class="form-input peer"
-                            placeholder=" "
-
+                            class="form-input"
+                            placeholder="Enter quantity"
+                            :class="{'border-red-500': errors.quantity}"
                         />
-                        <label for="quantity" class="form-label"
-                            >Quantity</label
-                        >
-                        <div class="text-red-500" v-if="formErrors?.quantity">
-                            {{ formErrors?.quantity }}
-                        </div>
+                        <ErrorMessage name="quantity" class="text-red-500" />
                     </div>
-                    <div class="relative z-0 w-full mb-5 group">
-                        <label for="in_stock" class="sr-only">In Stock</label>
-                        <select
+                    <div class="w-full">
+                        <label for="in_stock" class="form-label">In Stock</label>
+                        <Field
+                            as="select"
                             v-model="form.in_stock"
-                            id="in_stock"
                             name="in_stock"
-                            class="form-select peer"
+                            id="in_stock"
+                            class="form-input"
+                            :class="{'border-red-500': errors.in_stock}"
                         >
-                            <option selected value="">In Stock</option>
+                        <option selected value="">In Stock</option>
                             <option value="1">Yes</option>
                             <option value="0">No</option>
-                        </select>
-                        <div class="text-red-500" v-if="formErrors?.in_stock">
-                            {{ formErrors?.in_stock }}
-                        </div>
+                        </Field>
+                        <ErrorMessage name="in_stock" class="text-red-500" />
                     </div>
                 </div>
-                <div class="relative z-0 w-full mb-5 group">
-                    <label for="description" class="sr-only">Product Description</label>
-                    <textarea
-                        v-model="form.description"
-                        id="description"
-                        rows="4"
-                        class="form-textarea"
-                        placeholder="Description..."
+                <div class="sm:col-span-2 mb-2">
+                    <label for="description" class="form-label">Description</label>
+                        <Field
+                            v-model="form.description"
+                            as="textarea"
+                            name="description"
+                            id="description"
+                            class="form-input"
+                            placeholder="Product description"
+                            :class="{'border-red-500': errors.description}"
+                        />
+                        <ErrorMessage name="description" class="text-red-500" />
+                </div>
 
-                    ></textarea>
-                    <div class="text-red-500" v-if="formErrors?.description">
-                        {{ formErrors?.description }}
-                    </div>
+                <div class="sm:col-span-2">
+                    <label for="description" class="form-label">Images</label>
+                    <!-- Multiple images upload -->
+                    <el-upload
+                        action="/admin/images/upload"
+                        v-model:file-list="productImages"
+                        multiple
+                        :data="{_token: formToken, path: 'products' }"
+                        list-type="picture-card"
+                        :on-preview="handlePictureCardPreview"
+                        :on-remove="handleRemove"
+                        :on-success="handleUploadSuccess"
+                    >
+                        <el-icon><Plus /></el-icon>
+                    </el-upload>
+                    <!-- End multiple images upload -->
+                    <ErrorMessage name="product_images" class="text-red-500" />
                 </div>
                 <div class="dialog-footer justify-end flex">
                     <button @click="formVisible = false" type="button" class="btn-default mr-1">
@@ -588,15 +597,25 @@
                         Add product
                     </button>
                 </div>
-            </form>
+
+            </Form>
             <!-- End Form -->
         </el-dialog>
         <!-- End dialog -->
     </section>
 </template>
 <script setup>
-import { usePage, router } from "@inertiajs/vue3";
+import { usePage } from "@inertiajs/vue3";
 import { ref, reactive } from "vue";
+import { Form, Field, ErrorMessage } from 'vee-validate';
+import { Plus } from '@element-plus/icons-vue'
+import axios from "axios";
+import Swal from 'sweetalert2';
+
+const formToken = ref('');
+
+formToken.value = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
 const formInitialValue = () => ({
     name: "",
     quantity: "",
@@ -606,43 +625,72 @@ const formInitialValue = () => ({
     price: "",
     brand_id: "",
     category_id: "",
-    product_image: [],
+    product_images: [],
 });
 const form = reactive(formInitialValue());
-const productImages = ref([]);
-
 const products = usePage().props.products;
 const brands = usePage().props.brands;
 const categories = usePage().props.categories;
 const isCreate = ref(false);
 const formVisible = ref(false);
-const formErrors = ref({});
 
 const openProductModal = () => {
     isCreate.value = formVisible.value = true;
 };
 
-const submitForm = () => {
+const submitForm = (_, actions) => {
 
-    router.post('/admin/products/store', form, {
-        onError: (errors) => {
-            formErrors.value = errors;
-        },
-        onSuccess: page => {
+    // Set image value to form's product_images.
+    if(productImages.value.length){
+        for(const image of productImages.value){
+            form.product_images.push(image.name);
+        }
+    }
+    axios.post('/admin/products/store', form)
+        .then((response) => {
             formVisible.value = false;
+            resetFormData();
+            productImages.value = [];
             Swal.fire({
                 toast: true,
                 icon: 'success',
                 position: 'top-end',
                 showConfirmButton: false,
-                title: page.props.flash.success,
+                title: "Successfully Added.",
             });
+        })
+        .catch((errors) => {
+            console.log(errors);
+            actions.setErrors(errors.response.data.errors);
+        });
 
-            resetFormData()
-        }
-    });
 };
 
 const resetFormData = () => Object.assign(form, formInitialValue());
+
+// upload multiple image file list.
+const productImages = ref([]);
+const dialogVisible = ref(false);
+const dialogImageUrl = ref('');
+const handlePictureCardPreview = (file) => {
+  dialogImageUrl.value = file.url;
+  dialogVisible.value = true
+};
+
+const handleRemove = (file) => {
+    let formData = new FormData();
+    formData.append('image_path', file.name);
+    axios.post('/admin/image/remove', formData)
+        .then(response => {
+            // console.log(response);
+        })
+        .catch(errors => {
+            // console.log(errors);
+        });
+};
+const handleUploadSuccess = (response, file) => {
+    file.name = response;
+};
+
 
 </script>

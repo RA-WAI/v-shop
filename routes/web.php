@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\ProductController;
 
 // User Route
@@ -47,6 +48,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::get('products', 'index')->name('products.index');
         Route::post('products/store', 'store')->name('products.store');
     });
+
+    Route::controller(ImageController::class)->group(function() {
+        Route::post('images/upload', 'uploadImage')->name('image.upload');
+        Route::post('image/remove', 'removeImage')->name('image.remove');
+    });
+
 });
 // End Admin route group
 

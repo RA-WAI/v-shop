@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('slug', 400);
             $table->integer('quantity');
             $table->longText('description');
-            $table->boolean('published')->default(0);
+            $table->boolean('published')->default(0)->nullable();
             $table->boolean('in_stock')->default(0);
             $table->decimal('price', 10, 2);
             $table->foreignId('brand_id')->constrained()->onDelete('cascade');
